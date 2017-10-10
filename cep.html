@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<script src="./JS/jquery.min.js"></script>
+		<script>
+			$(function() {
+				$("#cep").blur(function(){
+					var servico="http://api.postmon.com.br/v1/cep/";
+					
+					var cep=$("#cep").val();
+					
+					var $xhr=$.get(servico+cep);
+					
+					$xhr.done(function(endereco){
+						$("#log").val(endereco.logradouro);
+						$("#num").val(endereco.numero);
+						$("#bai").val(endereco.bairro);
+						$("#cid").val(endereco.cidade);
+						$("#est").val(endereco.estado);
+						
+					});
+					$xhr.fail(function(endereco){
+						console.log(endereco);
+						$("#cep").val("Erro");
+					});
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+	
+			Nome
+			<input type="text" name="name" ><br>
+		<fieldset>
+			<legend>Endereço:</legend>
+			CEP:<br>
+			<input type="text" id="cep" name="cep" ><br>
+			Logradouro<br>
+			 <input type="text" id="log" name="log" ><br>
+			Número<br>
+			 <input type="text" id="num" name="num" ><br>
+			Bairro<br>
+			 <input type="text" id="bai" name="bai"><br>
+			Cidade<br>
+			 <input type="text" id="cid" name="cid"><br>
+			Estado<br>
+			<input type="text" id="est" name="est"><br><br>
+			<input id="pesquisar" type="submit" value="Salvar">
+		</fieldset>
+	</body>
+</html>
